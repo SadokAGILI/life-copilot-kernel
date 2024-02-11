@@ -1,3 +1,8 @@
+using life_copilot_kernel.Data;
+using life_copilot_kernel.Repositories;
+using life_copilot_kernel.Repositories_Implementations;
+using life_copilot_kernel.Services;
+using life_copilot_kernel.Services_Implementations;
 using Microsoft.Extensions.Hosting.WindowsServices;
 using NLog.Extensions.Logging;
 
@@ -9,7 +14,11 @@ var options = new WebApplicationOptions
 };
 var builder = WebApplication.CreateBuilder(options);
 
-// Add services to the container.
+builder.Services.AddDbContext<DBContext>();
+builder.Services.AddScoped<IActionRepository, ActionRepository>();
+builder.Services.AddScoped<IActionService, ActionService>();
+
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
