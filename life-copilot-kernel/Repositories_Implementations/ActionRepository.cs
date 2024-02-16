@@ -16,7 +16,8 @@ namespace life_copilot_kernel.Repositories_Implementations
 
         public Task<List<Action>> GetAllActions()
         {
-            var actions = _context.Actions.ToListAsync();
+            var actions = _context.Actions.OrderBy(a => a.index).ToListAsync();
+           
             return actions;
         }
 
@@ -32,7 +33,12 @@ namespace life_copilot_kernel.Repositories_Implementations
             return actions;
         }
         public async Task<Action> PostAction(Action newAction)
-        {
+        {    // Get the maximum index value from the database
+            int lastIndex = await _context.Actions.MaxAsync(a => (int?)a.index) ?? 0;
+
+            // Increment the index for the new action
+            newAction.index = lastIndex + 1;
+
             _context.Actions.Add(newAction);
             await _context.SaveChangesAsync();
             return newAction;
@@ -46,8 +52,9 @@ namespace life_copilot_kernel.Repositories_Implementations
             return updatedAction;
         }
 
-        public async Task<Action> DeleteAction(Action action)
+        public async Task<Action> DeleteAction(Guid? id)
         {
+            var action = await _context.Actions.FirstOrDefaultAsync(u => u.Action_Id == id);
             _context.Actions.Remove(action);
             await _context.SaveChangesAsync();
             return action;

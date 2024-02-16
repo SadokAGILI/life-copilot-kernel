@@ -50,10 +50,10 @@ namespace life_copilot_kernel.Controllers
             return Ok(action);
         }
 
-        [HttpDelete]
-        public async Task<ActionResult<Action>> DeleteAction(Action action)
+        [HttpDelete("DeleteActionById/{id}")]
+        public async Task<ActionResult<Action>> DeleteAction(Guid id)
         {
-            var deletedAction = await _actionService.DeleteAction(action);
+            var deletedAction = await _actionService.DeleteAction(id);
             return Ok(deletedAction);
         }
 

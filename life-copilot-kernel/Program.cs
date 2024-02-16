@@ -38,9 +38,13 @@ builder.WebHost.ConfigureLogging((hostingContext, logging) =>
 {
     logging.AddNLog(hostingContext.Configuration.GetSection("Logging"));
 });
+builder.Services.AddCors(p => p.AddPolicy("deveCorsPlicy", builder =>
+{
+    builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));
 var app = builder.Build();
 
-
+app.UseCors("deveCorsPlicy");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

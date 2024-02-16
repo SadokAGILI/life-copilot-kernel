@@ -12,7 +12,7 @@ namespace life_copilot_kernel.Services
 
         Task<Action> PostAction(Action newAction);
 
-        Task<Action> DeleteAction(Action action);
+        Task<Action> DeleteAction(Guid? id);
 
         Task<Action> UpdateAction(Action updatedAction);
     }

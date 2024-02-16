@@ -22,9 +22,9 @@ namespace life_copilot_kernel.Services_Implementations
        
 
 
-        public async Task<Action> DeleteAction(Action action)
+        public async Task<Action> DeleteAction(Guid? id)
         {
-            var actions = await _actionRepository.DeleteAction(action);
+            var actions = await _actionRepository.DeleteAction(id);
             return actions;
         }
 

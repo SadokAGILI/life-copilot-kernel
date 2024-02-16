@@ -8,5 +8,6 @@ namespace life_copilot_kernel.Models
         public Guid Action_Id { get; set; }
         public string? Description { get; set; }
         public bool? isDone { get; set; }
+        public int index { get; set; }
     }
 }
